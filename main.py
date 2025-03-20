@@ -19,14 +19,7 @@ elif page == 'Dashboard':
     Dashboard.tampilan_dashboard()
 elif page == 'Prediction':
     import prediksi
-
-    tab1, tab2 = st.tabs(['Project A', 'Project B'])
-
-    with tab1:
-        prediksi.project1
-    with tab2:
-        prediksi.project2
-
+    
     # if st.button('Project A'):
        # prediksi.project1()
 
