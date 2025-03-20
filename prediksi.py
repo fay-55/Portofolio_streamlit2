@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
-st.title('🤖 Machine Learning App')
+st.title('🤖 e-commerce App')
 
-st.info('This is app builds a machine learning model!')
+st.info('This is a EDA app!')
 
 with st.expander('Data'):
   st.write('**Raw data**')
@@ -33,6 +33,10 @@ with st.expander('📈 Data Visualization'):
     st.line_chart(df_grouped.set_index('Date'))
 
 st.selectbox("Pilih negara", df['Country'].unique())
+selected_products = st.multiselect("Pilih Produk", df['Description'].unique())
+if selected_products:
+    filtered_df = df[df['Description'].isin(selected_products)]
+    st.dataframe(filtered_df)
 
 st.slider("Range harga", float(df['UnitPrice'].min()),
 float(df['UnitPrice'].max()), (float(df['UnitPrice'].min()), float(df['UnitPrice'].max())))
