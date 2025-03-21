@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 st.title('🤖 e-commerce App')
 
 st.info('This is a EDA app!')
-
+st.info('https://github.com/fay-55/Portofolio_streamlit2/blob/main/prediksi.py')
 with st.expander('Data'):
   st.write('**Raw data**')
   df = pd.read_csv("https://raw.githubusercontent.com/fay-55/Portofolio_streamlit2/main/ecommerce_cleaned.csv")
@@ -29,8 +29,17 @@ df_grouped.columns = ['Date', 'Total Sales']
 
 st.dataframe(df_grouped)  # Lihat hasilnya
 
+df_barchart = df.groupby('Country')['Sales'].sum().reset_index()
+df_barchart.columns = ['Country', 'Total Sales']
+
+df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
+df_areachart = df.groupby(df['InvoiceDate'].dt.date)['Sales'].sum().reset_index()
+df_areachart.columns = ['Date', 'Total Sales']
+
 with st.expander('📈 Data Visualization'):
     st.line_chart(df_grouped.set_index('Date'))
+    st.bar_chart(df_barchart.set_index('Country'))
+    st.area_chart(df_areachart, x='Date', y='Total Sales')
 
 st.selectbox("Pilih negara", df['Country'].unique())
 selected_products = st.multiselect("Pilih Produk", df['Description'].unique())
