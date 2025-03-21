@@ -7,6 +7,7 @@ st.title('🤖 e-commerce App')
 
 st.info('This is a EDA app!')
 st.info('https://github.com/fay-55/Portofolio_streamlit2/blob/main/prediksi.py')
+
 with st.expander('Data'):
   st.write('**Raw data**')
   df = pd.read_csv("https://raw.githubusercontent.com/fay-55/Portofolio_streamlit2/main/ecommerce_cleaned.csv")
@@ -64,11 +65,3 @@ search_term = st.text_input("Cari Produk")
 if search_term:
     search_results = df[df['Description'].str.contains(search_term, case=False, na=False)]
     st.dataframe(search_results)
-
-
-# filterd_df = df[(df['Country'] == country) & 
-#(df['DayName'] == day_selected) &
-#(df['UnitPrice'] >= min_price) & (df['UnitPrice'] <= max_price) &
-#(df['Quantity'] >= quatity_range[0]) & (df['Quantity'] <= quatity_range[1])]
-
-#st.dataframe(filterd_df)
