@@ -11,9 +11,9 @@ st.info('https://github.com/fay-55/Portofolio_streamlit2/blob/main/prediksi.py')
 with st.expander('Data'):
   st.write('**Raw data**')
   df = pd.read_csv("https://raw.githubusercontent.com/fay-55/Portofolio_streamlit2/main/ecommerce_cleaned.csv")
-
   st.dataframe(df)  # Lebih interaktif dan bisa discroll
 
+st.write("Preview CSV:", df.head()) 
  # Konversi ke datetime
 df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'], errors='coerce')
     
@@ -37,6 +37,8 @@ df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
 df_areachart = df.groupby(df['InvoiceDate'].dt.date)['Sales'].sum().reset_index()
 df_areachart.columns = ['Date', 'Total Sales']
 
+st.write("Cek nilai NaN di InvoiceDate:", df['InvoiceDate'].isna().sum())
+
 with st.expander('📈 Data Visualization'):
     st.line_chart(df_grouped.set_index('Date'))
     st.bar_chart(df_barchart.set_index('Country'))
@@ -51,7 +53,6 @@ if selected_products:
 st.slider("Range harga", float(df['UnitPrice'].min()),
 float(df['UnitPrice'].max()), (float(df['UnitPrice'].min()), float(df['UnitPrice'].max())))
 
-st.selectbox("Pilih Hari", df['DayName'].unique())
 
 df['Quantity'] = pd.to_numeric(df['Quantity'], errors='coerce')
 df['Quantity'] = df['Quantity'].fillna(0).astype(int)
