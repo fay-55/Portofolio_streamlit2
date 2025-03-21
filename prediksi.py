@@ -3,15 +3,19 @@ import numpy as np
 import pandas as pd
 
 
-st.title('🤖 e-commerce App')
+st.title('🛍️ e-commerce App')
 
 st.info('This is a EDA app!')
 st.info('https://github.com/fay-55/Portofolio_streamlit2/blob/main/prediksi.py')
 
 with st.expander('Data'):
   st.write('**Raw data**')
-  df = pd.read_csv("https://raw.githubusercontent.com/fay-55/Portofolio_streamlit2/main/ecommerce_cleaned.csv")
-  st.dataframe(df)  # Lebih interaktif dan bisa discroll
+  
+  if "df" not in st.session_state:
+    st.session_state.df = pd.read_csv("https://raw.githubusercontent.com/fay-55/Portofolio_streamlit2/main/ecommerce_cleaned.csv")
+  st.dataframe(st.session_state.df)
+
+df = st.session_state.df
 
 st.write("Preview CSV:", df.head()) 
  # Konversi ke datetime
